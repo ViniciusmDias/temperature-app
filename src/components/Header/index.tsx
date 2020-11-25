@@ -5,7 +5,7 @@ import { HeaderMenu } from './styles';
 const Header: React.FC = () => {
   return (
     <HeaderMenu data-testid="header-container">
-      <a href="/">Weather Forecast</a>
+      <a href="/">Temperature App</a>
       <div>
         <a className="active" href="/">
           Forecast
