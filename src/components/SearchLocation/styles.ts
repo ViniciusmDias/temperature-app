@@ -17,17 +17,6 @@ export const Form = styled.form<ErrorProps>`
   height: 50px;
   margin: 6vh auto 2vh;
 
-  button {
-    background-color: var(--e-global-color-items-background);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    padding: 15px;
-    border-radius: 5px 0 0 5px;
-    border: 0;
-  }
-
   input + button {
     border-radius: 0 5px 5px 0;
     background-color: var(--e-global-color-primary);

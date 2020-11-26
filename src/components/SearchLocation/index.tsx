@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaLocationArrow, FaSearchLocation } from 'react-icons/fa';
 import { googleApi } from '../../services/api';
+import Button from '../Button';
 
 import { Container, Form, Subtitle, Error } from './styles';
 
@@ -69,9 +70,9 @@ const SearchLocation: React.FC<SearchLocationProps> = ({
   return (
     <Container data-testid="search-container">
       <Form hasError={!!inputError}>
-        <button type="submit" onClick={(e) => searchLocation(e, input)}>
+        <Button type="submit" onClick={(e) => searchLocation(e, input)}>
           <FaLocationArrow size={20} />
-        </button>
+        </Button>
         <input
           placeholder="Type here our location"
           type="text"
@@ -82,9 +83,9 @@ const SearchLocation: React.FC<SearchLocationProps> = ({
             }
           }}
         />
-        <button type="submit">
+        <Button type="submit">
           <FaSearchLocation size={20} color="#fff" />
-        </button>
+        </Button>
       </Form>
       {inputError && <Error>{inputError}</Error>}
 
