@@ -4,7 +4,8 @@
 import React, { useState, useEffect } from 'react';
 
 import { openWeatherApi } from '../../services/api';
-import { Container } from './styles';
+import Loading from '../Loading';
+import { Container, Weather } from './styles';
 
 interface LocationProps {
   latitude: number;
@@ -59,7 +60,7 @@ const ShowClimate: React.FC<LocationProps> = ({
                   `${weather.weather[0].description} currently in ${city} in ${state}. The temperature is ${weather.temp} °C`,
               )}
           </h1>
-          <div>
+          <Weather>
             <ul>
               <li />
               <li>Condition</li>
@@ -98,7 +99,7 @@ const ShowClimate: React.FC<LocationProps> = ({
                 <li>{weather.humidity} %</li>
               </ul>
             ))}
-          </div>
+          </Weather>
         </>
       )}
     </Container>

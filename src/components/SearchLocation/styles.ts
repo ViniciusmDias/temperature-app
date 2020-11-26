@@ -18,7 +18,7 @@ export const Form = styled.form<ErrorProps>`
   margin: 6vh auto 2vh;
 
   button {
-    background-color: #8e8e8e;
+    background-color: var(--e-global-color-items-background);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,29 +30,29 @@ export const Form = styled.form<ErrorProps>`
 
   input + button {
     border-radius: 0 5px 5px 0;
-    background-color: #017af9;
+    background-color: var(--e-global-color-primary);
   }
 
   input {
     padding: 1vh 2vw;
     height: 50px;
     flex: 1;
-    border: 2px solid #8e8e8e;
+    border: 2px solid var(--e-global-color-items-background);
 
     ${(props) =>
       props.hasError &&
       css`
-        border-color: #c53030;
+        border-color: var(--e-global-color-items-error);
       `}
 
     &::placeholder {
-      color: #a8a8b3;
+      color: var(--e-global-color-items-background);
     }
   }
 `;
 export const Error = styled.span`
   display: block;
-  color: #c53030;
+  color: var(--e-global-color-items-error);
   width: 90%;
   margin: 1vh auto 2vh;
 `;
@@ -61,7 +61,7 @@ export const Subtitle = styled.h2<ErrorProps>`
   text-align: center;
   padding: 1vh 2vw;
   font-size: 0.8rem;
-  color: #8e8e8e;
+  color: var(--e-global-color-items-background);
   width: 100%;
   margin: 0 auto;
   border-radius: 5px;

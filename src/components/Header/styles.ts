@@ -18,7 +18,7 @@ export const HeaderMenu = styled.header`
     text-decoration: none;
     font-size: 2rem;
     font-weight: 800;
-    color: #3c3c3c;
+    color: var(--e-global-color-text);
     transition: opacity 0.2s ease-in-out;
   }
   a:hover {
@@ -30,11 +30,11 @@ export const HeaderMenu = styled.header`
     }
     a {
       position: relative;
-      color: #8e8e8e;
+      color: var(--e-global-color-items-background);
       font-size: 1.5rem;
     }
     a.active {
-      color: #3c3c3c;
+      color: var(--e-global-color-text);
     }
     a.active:after {
       content: '';

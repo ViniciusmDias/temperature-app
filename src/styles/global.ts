@@ -2,6 +2,15 @@ import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
 
+  html {
+    --e-global-color-primary: #017af9;
+    --e-global-color-secondary: rgb(000, 178, 051);
+    --e-global-color-text: #3c3c3c;
+    --e-global-color-items-background: #8e8e8e;
+    --e-global-color-items-error: #c53030;
+    --e-global-color-white:rgb(250,250,250) ;
+  }
+
   * {
     margin: 0;
     padding: 0;
