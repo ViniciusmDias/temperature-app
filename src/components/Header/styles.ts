@@ -6,13 +6,8 @@ export const HeaderMenu = styled.header`
   flex-direction: column;
   align-items: center;
   height: 10vh;
-  margin-bottom: 6vh;
+  margin-bottom: 2vh;
 
-  @media (min-width: 760px) {
-    height: 80px;
-    flex-direction: row;
-    justify-content: space-between;
-  }
   a {
     padding: 2vh;
     text-decoration: none;
@@ -51,5 +46,9 @@ export const HeaderMenu = styled.header`
     a + a {
       margin-left: 2vw;
     }
+  }
+  @media (min-width: 760px) {
+    flex-direction: row;
+    justify-content: space-between;
   }
 `;

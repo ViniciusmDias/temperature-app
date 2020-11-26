@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable @typescript-eslint/ban-types */
 import React, { useEffect, useState } from 'react';
 import { FaLocationArrow, FaSearchLocation } from 'react-icons/fa';
 import { googleApi } from '../../services/api';
@@ -34,7 +32,6 @@ const SearchLocation: React.FC<SearchLocationProps> = ({
 
         const address = response.data.results[0].address_components;
 
-        // eslint-disable-next-line no-plusplus
         for (let i = 0; i < address.length; i++) {
           address[i].types.includes('administrative_area_level_2') &&
             setCity(address[i].long_name);
@@ -64,7 +61,6 @@ const SearchLocation: React.FC<SearchLocationProps> = ({
 
     const address = response.data.results[0].address_components;
 
-    // eslint-disable-next-line no-plusplus
     for (let i = 0; i < address.length; i++) {
       address[i].types.includes('administrative_area_level_2') &&
         setCity(address[i].long_name);

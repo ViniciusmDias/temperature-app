@@ -1,6 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-cond-assign */
-/* eslint-disable no-return-assign */
 import React, { useState, useEffect } from 'react';
 
 import { openWeatherApi } from '../../services/api';
@@ -15,10 +12,10 @@ interface LocationProps {
 }
 
 interface WeatherProps {
-  description: string;
   icon: string;
   id: number;
   main: string;
+  description: string;
 }
 
 interface ClimateProps {
@@ -26,7 +23,6 @@ interface ClimateProps {
   hour: number;
   weather: WeatherProps[];
   temp: number;
-  // eslint-disable-next-line camelcase
   feels_like: number;
   humidity: number;
 }
@@ -40,7 +36,6 @@ const ShowClimate: React.FC<LocationProps> = ({
   const [loading, setLoading] = useState(true);
   const [weathers, setWeathers] = useState<ClimateProps[]>([]);
 
-  /* Request when input is clicked */
   useEffect(() => {
     setLoading(true);
     async function loadData() {
@@ -60,10 +55,12 @@ const ShowClimate: React.FC<LocationProps> = ({
 
   const convertHourToAmPmFormat = ({ dt }: ClimateProps) =>
     new Date(dt * 1000).getHours() - 12 < 0 ? (
-      <span>:00 am</span>
+      <strong>:00 am</strong>
     ) : (
-      <span>:00 pm</span>
+      <strong>:00 pm</strong>
     );
+
+  console.log(weathers);
 
   return (
     <Container data-testid="showclimate-container">
@@ -72,12 +69,7 @@ const ShowClimate: React.FC<LocationProps> = ({
       ) : (
         <>
           <h1>
-            {weathers
-              .slice(0, 1)
-              .map(
-                (weather) =>
-                  `${weather.weather[0].description} currently in ${city} in ${state}. The temperature is ${weather.temp} °C`,
-              )}
+            {`${weathers[0].weather[0].description} currently in ${city} in ${state}. The temperature is ${weathers[0].temp} °C`}
           </h1>
           {loading ? (
             <Loading />
@@ -93,15 +85,17 @@ const ShowClimate: React.FC<LocationProps> = ({
 
               {weathers.map((weather) => (
                 <ul key={weather.dt}>
-                  {/* Am/Pm logical */}
                   <li>
                     {datatimeToHour(weather)}
                     {convertHourToAmPmFormat(weather)}
                   </li>
-                  <img
-                    src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-                    alt="Weather icons based on temperature"
-                  />
+                  <li>
+                    <img
+                      src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+                      alt="Weather icons based on temperature"
+                    />
+                    <span>{weather.weather[0].description}</span>
+                  </li>
                   <li>{weather.temp} °C</li>
                   <li>{weather.feels_like} °C</li>
                   <li>{weather.humidity} %</li>

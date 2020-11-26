@@ -19,13 +19,15 @@ export default createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  body, input, button, a {
-    font: 12px 'Arimo', sans-serif;
+  html, body, input, button, a {
+    font-size: 14px;
+    font-family: 'Arimo', sans-serif;
     letter-spacing: 0.5px;
   }
   @media (min-width: 760px) {
-    font-size: 14px;
-
+    html, body, input, button, a {
+      font-size: 16px;
+    }
   }
   button {
     cursor: pointer;
