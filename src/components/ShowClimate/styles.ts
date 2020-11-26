@@ -21,12 +21,8 @@ export const Weather = styled.div`
   display: flex;
   overflow-x: scroll;
 
-  @media (min-width: 760px) {
-    justify-content: center;
-  }
-
   ul {
-    width: 100px;
+    flex: 1;
     display: flex;
     flex-direction: column;
     list-style: none;
@@ -38,11 +34,13 @@ export const Weather = styled.div`
       justify-content: center;
       align-items: center;
       text-decoration: none;
-
-      width: 100px;
-      height: 100px;
+      width: 100%;
+      height: 10vh;
       font-weight: 700;
       font-size: 1rem;
     }
+  }
+  @media (min-width: 760px) {
+    justify-content: center;
   }
 `;

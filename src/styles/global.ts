@@ -27,11 +27,6 @@ export default createGlobalStyle`
     font-size: 14px;
 
   }
-  #root {
-    padding: 0 8vw;
-    max-width: 960px;
-    margin: 0 auto;
-  }
   button {
     cursor: pointer;
   }

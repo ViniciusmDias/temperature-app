@@ -5,7 +5,7 @@ export const HeaderMenu = styled.header`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  height: 110px;
+  height: 10vh;
   margin-bottom: 6vh;
 
   @media (min-width: 760px) {

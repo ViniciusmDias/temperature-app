@@ -14,7 +14,7 @@ export const Form = styled.form<ErrorProps>`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 50px;
+  height: 5vh;
   margin: 6vh auto 2vh;
 
   input + button {
@@ -24,7 +24,7 @@ export const Form = styled.form<ErrorProps>`
 
   input {
     padding: 1vh 2vw;
-    height: 50px;
+    height: 5vh;
     flex: 1;
     border: 2px solid var(--e-global-color-items-background);
 
