@@ -25,25 +25,33 @@ const SearchLocation: React.FC<SearchLocationProps> = ({
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
-      googleApi
-        .get(
+      async function loadLocation() {
+        const response = await googleApi.get(
           `/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=AIzaSyD6rKc6URJVJv5GNgNydJxd19jitau6pg0`,
-        )
-        .then((response) => {
-          setLatitude(response.data.results[0].geometry.location.lat);
-          setLongitude(response.data.results[0].geometry.location.lng);
-          response.data.results[0].address_components.map((rep: any) => {
-            rep.types.includes('administrative_area_level_2') &&
-              setCity(rep.long_name);
-            rep.types.includes('administrative_area_level_1') &&
-              setState(rep.short_name);
-            return console.log('Addresses founds');
-          });
-        });
-    });
-  }, []);
+        );
+        setLatitude(response.data.results[0].geometry.location.lat);
+        setLongitude(response.data.results[0].geometry.location.lng);
 
-  async function searchLocation(e: any, value: string) {
+        const address = response.data.results[0].address_components;
+
+        // eslint-disable-next-line no-plusplus
+        for (let i = 0; i < address.length; i++) {
+          address[i].types.includes('administrative_area_level_2') &&
+            setCity(address[i].long_name);
+          address[i].types.includes('administrative_area_level_1') &&
+            setState(address[i].short_name);
+        }
+      }
+      loadLocation();
+    });
+  }, [setLatitude, setLongitude, setCity, setState]);
+
+  async function searchLocation(
+    e:
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+      | React.KeyboardEvent<HTMLInputElement>,
+    value: string,
+  ) {
     e.preventDefault();
     if (!value) {
       setInputError('Type city name or zip code in box text above to continue');
@@ -54,20 +62,23 @@ const SearchLocation: React.FC<SearchLocationProps> = ({
       `/json?address=${value}&key=AIzaSyD6rKc6URJVJv5GNgNydJxd19jitau6pg0`,
     );
 
-    response.data.results[0].address_components.map((rep: any) => {
-      rep.types.includes('administrative_area_level_2') &&
-        setCity(rep.long_name);
-      rep.types.includes('administrative_area_level_1') &&
-        setState(rep.short_name);
-      return console.log('Addresses founds');
-    });
+    const address = response.data.results[0].address_components;
+
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < address.length; i++) {
+      address[i].types.includes('administrative_area_level_2') &&
+        setCity(address[i].long_name);
+      address[i].types.includes('administrative_area_level_1') &&
+        setState(address[i].short_name);
+    }
+
     setLatitude(response.data.results[0].geometry.location.lat);
     setLongitude(response.data.results[0].geometry.location.lng);
     setInputError('');
   }
 
   return (
-    <Container data-testid="search-container">
+    <Container data-testid="searchlocation-container">
       <Form hasError={!!inputError}>
         <Button type="submit" onClick={(e) => searchLocation(e, input)}>
           <FaLocationArrow size={20} />

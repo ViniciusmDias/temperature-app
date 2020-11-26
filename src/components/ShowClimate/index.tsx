@@ -66,7 +66,7 @@ const ShowClimate: React.FC<LocationProps> = ({
     );
 
   return (
-    <Container>
+    <Container data-testid="showclimate-container">
       {loading ? (
         <Loading />
       ) : (

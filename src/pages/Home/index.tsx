@@ -12,7 +12,7 @@ const Home: React.FC = () => {
   const [state, setState] = useState('');
 
   return (
-    <Container>
+    <Container data-testid="home-container">
       <Header />
       <SearchLocation
         setCity={setCity}
