@@ -14,10 +14,17 @@ interface LocationProps {
   state: string;
 }
 
+interface WeatherProps {
+  description: string;
+  icon: string;
+  id: number;
+  main: string;
+}
+
 interface ClimateProps {
   dt: number;
   hour: number;
-  weather: any[];
+  weather: WeatherProps[];
   temp: number;
   // eslint-disable-next-line camelcase
   feels_like: number;
@@ -30,21 +37,33 @@ const ShowClimate: React.FC<LocationProps> = ({
   city,
   state,
 }: LocationProps) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [weathers, setWeathers] = useState<ClimateProps[]>([]);
 
   /* Request when input is clicked */
   useEffect(() => {
     setLoading(true);
-    openWeatherApi
-      .get(
+    async function loadData() {
+      const response = await openWeatherApi.get(
         `/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,daily&units=metric&appid=52219e46da1db33cf0ad6c6b4cb4d908`,
-      )
-      .then((response) => {
-        setWeathers(response.data.hourly.slice(0, 6));
-      });
-    setLoading(false);
+      );
+      setWeathers(response.data.hourly.slice(0, 6));
+      setLoading(false);
+    }
+    loadData();
   }, [latitude, longitude]);
+
+  const datatimeToHour = ({ dt }: ClimateProps) =>
+    new Date(dt * 1000).getHours() - 12 < 0
+      ? (new Date(dt * 1000).getHours() - 12) * -1
+      : new Date(dt * 1000).getHours() - 12;
+
+  const convertHourToAmPmFormat = ({ dt }: ClimateProps) =>
+    new Date(dt * 1000).getHours() - 12 < 0 ? (
+      <span>:00 am</span>
+    ) : (
+      <span>:00 pm</span>
+    );
 
   return (
     <Container>
@@ -60,46 +79,36 @@ const ShowClimate: React.FC<LocationProps> = ({
                   `${weather.weather[0].description} currently in ${city} in ${state}. The temperature is ${weather.temp} °C`,
               )}
           </h1>
-          <Weather>
-            <ul>
-              <li />
-              <li>Condition</li>
-              <li>Temperature</li>
-              <li>Feels Like</li>
-              <li>Humidity</li>
-            </ul>
-
-            {weathers.map((weather) => (
-              <ul key={weather.dt}>
-                {/* Am/Pm logical */}
-                <li>
-                  {(weather.hour = new Date(weather.dt * 1000).getHours()) -
-                    12 <
-                  0
-                    ? ((weather.hour = new Date(weather.dt * 1000).getHours()) -
-                        12) *
-                      -1
-                    : (weather.hour = new Date(weather.dt * 1000).getHours()) -
-                      12}
-
-                  {(weather.hour = new Date(weather.dt * 1000).getHours()) -
-                    12 <
-                  0 ? (
-                    <span>:00 am</span>
-                  ) : (
-                    <span>:00 pm</span>
-                  )}
-                </li>
-                <img
-                  src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-                  alt="Weather icons based on temperature"
-                />
-                <li>{weather.temp} °C</li>
-                <li>{weather.feels_like} °C</li>
-                <li>{weather.humidity} %</li>
+          {loading ? (
+            <Loading />
+          ) : (
+            <Weather>
+              <ul>
+                <li />
+                <li>Condition</li>
+                <li>Temperature</li>
+                <li>Feels Like</li>
+                <li>Humidity</li>
               </ul>
-            ))}
-          </Weather>
+
+              {weathers.map((weather) => (
+                <ul key={weather.dt}>
+                  {/* Am/Pm logical */}
+                  <li>
+                    {datatimeToHour(weather)}
+                    {convertHourToAmPmFormat(weather)}
+                  </li>
+                  <img
+                    src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+                    alt="Weather icons based on temperature"
+                  />
+                  <li>{weather.temp} °C</li>
+                  <li>{weather.feels_like} °C</li>
+                  <li>{weather.humidity} %</li>
+                </ul>
+              ))}
+            </Weather>
+          )}
         </>
       )}
     </Container>

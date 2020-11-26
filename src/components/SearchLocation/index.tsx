@@ -54,7 +54,6 @@ const SearchLocation: React.FC<SearchLocationProps> = ({
       `/json?address=${value}&key=AIzaSyD6rKc6URJVJv5GNgNydJxd19jitau6pg0`,
     );
 
-    /* data processing for request response */
     response.data.results[0].address_components.map((rep: any) => {
       rep.types.includes('administrative_area_level_2') &&
         setCity(rep.long_name);
