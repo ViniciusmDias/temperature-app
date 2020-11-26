@@ -20,12 +20,14 @@ const Home: React.FC = () => {
         setLatitude={setLatitude}
         setLongitude={setLongitude}
       />
-      <ShowClimate
-        latitude={latitude}
-        longitude={longitude}
-        city={city}
-        state={state}
-      />
+      {city && (
+        <ShowClimate
+          latitude={latitude}
+          longitude={longitude}
+          city={city}
+          state={state}
+        />
+      )}
     </Container>
   );
 };

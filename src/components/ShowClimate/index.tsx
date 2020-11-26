@@ -3,17 +3,17 @@
 /* eslint-disable no-return-assign */
 import React, { useState, useEffect } from 'react';
 
-import api from 'axios';
+import { openWeatherApi } from '../../services/api';
 import { Container } from './styles';
 
-interface WeatherProps {
+interface LocationProps {
   latitude: number;
   longitude: number;
   city: string;
   state: string;
 }
 
-interface Weathers {
+interface ClimateProps {
   dt: number;
   hour: number;
   weather: any[];
@@ -23,21 +23,21 @@ interface Weathers {
   humidity: number;
 }
 
-const ShowClimate: React.FC<WeatherProps> = ({
+const ShowClimate: React.FC<LocationProps> = ({
   latitude,
   longitude,
   city,
   state,
-}: WeatherProps) => {
-  const [weathers, setWeathers] = useState<Weathers[]>([]);
+}: LocationProps) => {
+  const [weathers, setWeathers] = useState<ClimateProps[]>([]);
 
   /* Request when input is clicked */
   useEffect(() => {
-    api
+    openWeatherApi
       .get(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,daily&units=metric&appid=52219e46da1db33cf0ad6c6b4cb4d908`,
+        `/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,daily&units=metric&appid=52219e46da1db33cf0ad6c6b4cb4d908`,
       )
-      .then((response: any) => {
+      .then((response) => {
         setWeathers(response.data.hourly.slice(0, 6));
       });
   }, [latitude, longitude]);

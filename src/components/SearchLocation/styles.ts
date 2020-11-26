@@ -1,11 +1,15 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+interface ErrorProps {
+  hasError: boolean;
+}
 
 export const Container = styled.section`
   display: flex;
   flex-direction: column;
 `;
 
-export const Form = styled.form`
+export const Form = styled.form<ErrorProps>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,13 +39,25 @@ export const Form = styled.form`
     flex: 1;
     border: 2px solid #8e8e8e;
 
+    ${(props) =>
+      props.hasError &&
+      css`
+        border-color: #c53030;
+      `}
+
     &::placeholder {
       color: #a8a8b3;
     }
   }
 `;
+export const Error = styled.span`
+  display: block;
+  color: #c53030;
+  width: 90%;
+  margin: 1vh auto 2vh;
+`;
 
-export const Subtitle = styled.h2`
+export const Subtitle = styled.h2<ErrorProps>`
   text-align: center;
   padding: 1vh 2vw;
   font-size: 0.8rem;
@@ -49,4 +65,10 @@ export const Subtitle = styled.h2`
   width: 100%;
   margin: 0 auto;
   border-radius: 5px;
+
+  ${(props) =>
+    props.hasError &&
+    css`
+      box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 8px;
+    `};
 `;
