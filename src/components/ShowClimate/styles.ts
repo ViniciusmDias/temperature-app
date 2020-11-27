@@ -5,7 +5,7 @@ export const Container = styled.section`
   flex-direction: column;
   align-items: center;
   margin-top: 6vh;
-  overflow-x: scroll;
+  overflow-x: auto;
 
   h1 {
     text-align: center;
