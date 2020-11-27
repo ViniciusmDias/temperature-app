@@ -1,46 +1,70 @@
-# Getting Started with Create React App
+# :sunny: Temperature App :umbrella:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple web application that allows users to view the temperature forecast for the next six hours at a given location.
 
-## Available Scripts
+## :open_file_folder: Project Structure
 
-In the project directory, you can run:
+The project contains the following main folders:
 
-### `yarn start`
+./coverage => application test coverage results;
+./public => static html;
+./src => root directory;
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+In root directory:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- src/tests => Tests of application;
+- src/components => Reusable application components;
+- src/pages => Application pages;
+- src/service => Application services (API);
+- src/styles => Global application styles;
 
-### `yarn test`
+## :sparkles: Tech Introduction
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This application was developed with **React** and **Typescript**. (`create-react-app`);
 
-### `yarn build`
+Each component has a folder with its respective name and inside it has two file, the component structure (**index.jsx**) and the component style (**style.ts**). Practically all components have a rendering test, found in the **test** directory.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Prettier** and **ESlint** were used to standardize the code and improve productivity.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## :heavy_check_mark: How To Use
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer.
 
-### `yarn eject`
+From your command line run the commands.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Clone this repo:
+`git clone https://github.com/ViniciusmDias/quote-generator`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Go to the root folder (/temperature-app) and install the dependencies:
+`yarn install`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Start the application in development mode:
+`yarn dev`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The application will start at `http://localhost:3000/`.
 
-## Learn More
+Build the application for production:
+`yarn build`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Runs rendering tests:
+`yarn test: coverage`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## :heavy_plus_sign: Added Libraries
+
+Some libraries were added to improve the project and make the developer more proactive:
+
+- ESlint;
+- Prettier;
+- Axios;
+- Styled Components;
+- React Icons;
+
+## :eyeglasses: Acknowledgements
+
+- [Easy start of a Typescript/React project (w/ Yarn, ESlint and Prettier) ](https://dev.to/viniciusmdias/easy-start-of-a-typescript-react-project-w-eslint-and-prettier-55d4)
+
+## :briefcase: Contact
+
+- Website [viniciusdias.works](https://viniciusdias.works)
+- GitHub [@viniciusmdias](https://github.com/ViniciusmDias)
+- Twitter [@vinidiasdev](https://twitter.com/vinidiasdev)

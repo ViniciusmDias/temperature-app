@@ -60,8 +60,6 @@ const ShowClimate: React.FC<LocationProps> = ({
       <strong>:00 pm</strong>
     );
 
-  console.log(weathers);
-
   return (
     <Container data-testid="showclimate-container">
       {loading ? (

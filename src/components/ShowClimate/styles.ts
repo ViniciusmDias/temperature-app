@@ -44,6 +44,7 @@ export const Weather = styled.div`
     }
     li:nth-child(1) {
       flex-direction: row;
+      font-weight: 700;
     }
   }
   ul:nth-child(1) {
