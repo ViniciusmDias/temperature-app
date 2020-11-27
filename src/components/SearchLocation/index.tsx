@@ -59,18 +59,22 @@ const SearchLocation: React.FC<SearchLocationProps> = ({
       `/json?address=${value}&key=AIzaSyD6rKc6URJVJv5GNgNydJxd19jitau6pg0`,
     );
 
-    const address = response.data.results[0].address_components;
+    if (response.data.results[0]) {
+      const address = response.data.results[0].address_components;
 
-    for (let i = 0; i < address.length; i++) {
-      address[i].types.includes('administrative_area_level_2') &&
-        setCity(address[i].long_name);
-      address[i].types.includes('administrative_area_level_1') &&
-        setState(address[i].short_name);
+      for (let i = 0; i < address.length; i++) {
+        address[i].types.includes('administrative_area_level_2') &&
+          setCity(address[i].long_name);
+        address[i].types.includes('administrative_area_level_1') &&
+          setState(address[i].short_name);
+      }
+
+      setLatitude(response.data.results[0].geometry.location.lat);
+      setLongitude(response.data.results[0].geometry.location.lng);
+      setInputError('');
+    } else {
+      setInputError('Fill with a valid address');
     }
-
-    setLatitude(response.data.results[0].geometry.location.lat);
-    setLongitude(response.data.results[0].geometry.location.lng);
-    setInputError('');
   }
 
   return (
@@ -89,7 +93,7 @@ const SearchLocation: React.FC<SearchLocationProps> = ({
             }
           }}
         />
-        <Button type="submit">
+        <Button type="submit" onClick={(e) => searchLocation(e, input)}>
           <FaSearchLocation size={20} color="#fff" />
         </Button>
       </Form>
