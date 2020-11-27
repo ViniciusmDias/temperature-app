@@ -50,7 +50,7 @@ const ShowClimate: React.FC<LocationProps> = ({
 
   const datatimeToHour = ({ dt }: ClimateProps) =>
     new Date(dt * 1000).getHours() - 12 < 0
-      ? (new Date(dt * 1000).getHours() - 12) * -1
+      ? new Date(dt * 1000).getHours()
       : new Date(dt * 1000).getHours() - 12;
 
   const convertHourToAmPmFormat = ({ dt }: ClimateProps) =>
@@ -84,6 +84,9 @@ const ShowClimate: React.FC<LocationProps> = ({
               {weathers.map((weather) => (
                 <ul key={weather.dt}>
                   <li>
+                    {console.log(
+                      new Date(weather.dt).toLocaleTimeString('pt-br'),
+                    )}
                     {datatimeToHour(weather)}
                     {convertHourToAmPmFormat(weather)}
                   </li>

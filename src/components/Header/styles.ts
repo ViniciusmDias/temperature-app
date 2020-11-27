@@ -16,21 +16,22 @@ export const HeaderMenu = styled.header`
     color: var(--e-global-color-text);
     transition: opacity 0.2s ease-in-out;
   }
+
   a:hover {
     opacity: 0.8;
   }
+
   div {
-    @media (min-width: 760px) {
-      margin-top: 0;
-    }
     a {
       position: relative;
       color: var(--e-global-color-items-background);
       font-size: 1.5rem;
     }
+
     a.active {
       color: var(--e-global-color-text);
     }
+
     a.active:after {
       content: '';
       position: absolute;
@@ -46,7 +47,12 @@ export const HeaderMenu = styled.header`
     a + a {
       margin-left: 2vw;
     }
+
+    @media (min-width: 760px) {
+      margin-top: 0;
+    }
   }
+
   @media (min-width: 760px) {
     flex-direction: row;
     justify-content: space-between;

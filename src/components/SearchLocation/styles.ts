@@ -39,6 +39,7 @@ export const Form = styled.form<ErrorProps>`
     }
   }
 `;
+
 export const Error = styled.span`
   display: block;
   color: var(--e-global-color-items-error);
