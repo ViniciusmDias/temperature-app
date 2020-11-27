@@ -84,9 +84,6 @@ const ShowClimate: React.FC<LocationProps> = ({
               {weathers.map((weather) => (
                 <ul key={weather.dt}>
                   <li>
-                    {console.log(
-                      new Date(weather.dt).toLocaleTimeString('pt-br'),
-                    )}
                     {datatimeToHour(weather)}
                     {convertHourToAmPmFormat(weather)}
                   </li>

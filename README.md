@@ -18,13 +18,15 @@ In root directory:
 - src/service => Application services (API);
 - src/styles => Global application styles;
 
-## :sparkles: Tech Introduction
+## :sparkles: Overview
 
 This application was developed with **React** and **Typescript**. (`create-react-app`);
 
 Each component has a folder with its respective name and inside it has two file, the component structure (**index.jsx**) and the component style (**style.ts**). Practically all components have a rendering test, found in the **test** directory.
 
 **Prettier** and **ESlint** were used to standardize the code and improve productivity.
+
+![screenshot](https://raw.githubusercontent.com/ViniciusmDias/temperature-app/main/public/temperatureapp-demo.png?token=AFRJMG3LLDF43VYRJZUDEKK7ZGOKC)
 
 ## :heavy_check_mark: How To Use
 
