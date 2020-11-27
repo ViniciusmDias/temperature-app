@@ -28,10 +28,10 @@ interface ClimateProps {
 }
 
 const ShowClimate: React.FC<LocationProps> = ({
-  latitude,
-  longitude,
-  city,
-  state,
+  latitude = -27.5969,
+  longitude = -48.5495,
+  city = 'florianópolis',
+  state = 'SC',
 }: LocationProps) => {
   const [loading, setLoading] = useState(true);
   const [weathers, setWeathers] = useState<ClimateProps[]>([]);
