@@ -51,7 +51,9 @@ const SearchLocation: React.FC<SearchLocationProps> = ({
   ) {
     e.preventDefault();
     if (!value) {
-      setInputError('Type city name or zip code in box text above to continue');
+      setInputError(
+        'Digite o nome da cidade ou código postal antes de continuar.',
+      );
       return;
     }
 
@@ -73,7 +75,7 @@ const SearchLocation: React.FC<SearchLocationProps> = ({
       setLongitude(response.data.results[0].geometry.location.lng);
       setInputError('');
     } else {
-      setInputError('Fill with a valid address');
+      setInputError('Coloque um endereço válido!');
     }
   }
 
@@ -84,7 +86,7 @@ const SearchLocation: React.FC<SearchLocationProps> = ({
           <FaLocationArrow size={20} />
         </Button>
         <input
-          placeholder="Type here our location"
+          placeholder="Digite aqui a sua localização."
           type="text"
           onChange={(e) => setInput(e.target.value)}
           onKeyPress={(e) => {
@@ -100,8 +102,8 @@ const SearchLocation: React.FC<SearchLocationProps> = ({
       {inputError && <Error>{inputError}</Error>}
 
       <Subtitle hasError={!!inputError}>
-        Enter the address, city name (*with State, for more precision) or zip
-        code to get the weather forecast
+        Coloque o endereço, nome da cidade (com o Estado, para melhor precisão)
+        ou o código postal.
       </Subtitle>
     </Container>
   );

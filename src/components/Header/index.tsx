@@ -6,7 +6,7 @@ const Header: React.FC = () => {
   return (
     <HeaderMenu data-testid="header-container">
       <a href="/" title="Go to Home">
-        Temperature App
+        Wind App
       </a>
       <div>
         <a className="active" href="/" title="Go to Home">

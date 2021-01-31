@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react/no-unused-prop-types */
 import React, { useState, useEffect } from 'react';
 
+import { CgArrowLongUpR } from 'react-icons/cg';
 import { openWeatherApi } from '../../services/api';
 import Loading from '../Loading';
 import { Container, Weather } from './styles';
@@ -11,20 +14,12 @@ interface LocationProps {
   state: string;
 }
 
-interface WeatherProps {
-  icon: string;
-  id: number;
-  main: string;
-  description: string;
-}
-
-interface ClimateProps {
-  dt: number;
-  hour: number;
-  weather: WeatherProps[];
+interface CurrentProps {
+  sunrise: number;
+  sunset: number;
   temp: number;
-  feels_like: number;
-  humidity: number;
+  wind_speed: number;
+  wind_deg: number;
 }
 
 const ShowClimate: React.FC<LocationProps> = ({
@@ -33,32 +28,73 @@ const ShowClimate: React.FC<LocationProps> = ({
   city = 'florianópolis',
   state = 'SC',
 }: LocationProps) => {
+  const apiKey = '53784de0feccd9f2bac24296dba5348d';
+
   const [loading, setLoading] = useState(true);
-  const [weathers, setWeathers] = useState<ClimateProps[]>([]);
+  const [location, setLocation] = useState<CurrentProps>({
+    sunrise: 1,
+    sunset: 1,
+    temp: 1,
+    wind_speed: 1,
+    wind_deg: 1,
+  });
+
+  const beachs = [
+    {
+      id: 1,
+      latitude: -27.60313285,
+      longitude: -48.43333368,
+      name: 'Praia Mole',
+    },
+    {
+      id: 2,
+      latitude: -27.71464786,
+      longitude: -48.50172043,
+      name: 'Morro das Pedras',
+    },
+  ];
 
   useEffect(() => {
     setLoading(true);
     async function loadData() {
       const response = await openWeatherApi.get(
-        `/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,daily&units=metric&appid=52219e46da1db33cf0ad6c6b4cb4d908`,
+        `/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=hourly,daily,minutely,alerts&appid=${apiKey}`,
       );
-      setWeathers(response.data.hourly.slice(0, 6));
+      setLocation(response.data.current);
       setLoading(false);
     }
     loadData();
   }, [latitude, longitude]);
 
-  const datatimeToHour = ({ dt }: ClimateProps) =>
-    new Date(dt * 1000).getHours() - 12 < 0
-      ? new Date(dt * 1000).getHours()
-      : new Date(dt * 1000).getHours() - 12;
+  const convertDegreInDirection = (value: number) => {
+    return value > 180 ? value - 180 : value + 180;
+  };
 
-  const convertHourToAmPmFormat = ({ dt }: ClimateProps) =>
-    new Date(dt * 1000).getHours() - 12 < 0 ? (
-      <strong>:00 am</strong>
-    ) : (
-      <strong>:00 pm</strong>
-    );
+  const convertMeterPerSecToKmPerHour = (value: number) => {
+    return value * 3.6;
+  };
+
+  const convertTimestampToHour = (value: number) => {
+    const date = new Date(value * 1000);
+    const hours = date.getHours();
+    const minutes = `0${date.getMinutes()}`;
+    const seconds = `0${date.getSeconds()}`;
+    return `${hours}:${minutes.substr(-2)}:${seconds.substr(-2)}`;
+  };
+
+  const handleLatAndLong = (index: any) => {
+    const lat = beachs[index].latitude;
+    const long = beachs[index].longitude;
+
+    openWeatherApi
+      .get(
+        `/onecall?lat=${lat}&lon=${long}&units=metric&exclude=hourly,daily,minutely,alerts&appid=${apiKey}`,
+      )
+      .then((res: any) => {
+        setLocation(res.data.current);
+        setLoading(false);
+      });
+  };
 
   return (
     <Container data-testid="showclimate-container">
@@ -67,38 +103,44 @@ const ShowClimate: React.FC<LocationProps> = ({
       ) : (
         <>
           <h1>
-            {`${weathers[0].weather[0].description} currently in ${city} in ${state}. The temperature is ${weathers[0].temp} °C`}
+            Você está em {city} no estado de {state}
           </h1>
+          <div className="input">
+            <h3>Praias</h3>
+            <select
+              onChange={(e) => {
+                handleLatAndLong(e.target.value);
+              }}
+            >
+              <option value="" defaultValue="Escolha uma Praia" hidden>
+                Escolha uma Praia
+              </option>
+              <option key={beachs[0].id} value={0}>
+                {beachs[0].name}
+              </option>
+              <option key={beachs[1].id} value={1}>
+                {beachs[1].name}
+              </option>
+            </select>
+          </div>
           {loading ? (
             <Loading />
           ) : (
-            <Weather>
-              <ul>
-                <li />
-                <li>Condition</li>
-                <li>Temperature</li>
-                <li>Feels Like</li>
-                <li>Humidity</li>
-              </ul>
+            <Weather degree={convertDegreInDirection(location.wind_deg)}>
+              <h2>Vento soprando na direção {location.wind_deg} degree</h2>
+              <CgArrowLongUpR />
 
-              {weathers.map((weather) => (
-                <ul key={weather.dt}>
-                  <li>
-                    {datatimeToHour(weather)}
-                    {convertHourToAmPmFormat(weather)}
-                  </li>
-                  <li>
-                    <img
-                      src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-                      alt="Weather icons based on temperature"
-                    />
-                    <span>{weather.weather[0].description}</span>
-                  </li>
-                  <li>{weather.temp} °C</li>
-                  <li>{weather.feels_like} °C</li>
-                  <li>{weather.humidity} %</li>
-                </ul>
-              ))}
+              <p>
+                Com a velocidade de{' '}
+                {convertMeterPerSecToKmPerHour(location.wind_speed)}km/h.
+              </p>
+              <p>O sol nasceu as {convertTimestampToHour(location.sunrise)}</p>
+              <p>
+                O sol vai se por as {convertTimestampToHour(location.sunset)}
+              </p>
+              <p>
+                A temperatura atual na sua localização é de: {location.temp}ºC
+              </p>
             </Weather>
           )}
         </>
